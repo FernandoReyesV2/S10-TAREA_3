@@ -9,7 +9,6 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Usar las rutas de autenticación
 app.use('/api', authRoutes);
 
 app.get('/', (req, res) => {

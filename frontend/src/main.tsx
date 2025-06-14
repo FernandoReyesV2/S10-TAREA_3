@@ -5,15 +5,28 @@ import './index.css';
 import Inicio from './paginas/Inicio';
 import Login from './paginas/Login';
 import Register from './paginas/Register';
+import Protegida from './paginas/Protegida';
+import RutaPrivada from './componentes/RutaPrivada';
+import { AuthProvider } from './context/AuthContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Inicio />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/protegida"
+            element={
+              <RutaPrivada>
+                <Protegida />
+              </RutaPrivada>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>,
 );

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './estilos/Navbar.css';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 type NavbarProps = {
   mostrarLogin?: boolean;
@@ -8,7 +9,12 @@ type NavbarProps = {
 
 function Navbar({ mostrarLogin = true }: NavbarProps) {
   const navigate = useNavigate();
-  
+  const { isAuthenticated, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <nav className="navbar">
@@ -20,10 +26,17 @@ function Navbar({ mostrarLogin = true }: NavbarProps) {
         <li><a href="#">Acerca</a></li>
         <li><a href="#">Contacto</a></li>
       </ul>
-      {mostrarLogin && (
-       <button className="login-button" onClick={() => navigate('/login')}>
-        Login
-      </button>
+
+      {isAuthenticated ? (
+        <button className="login-button" onClick={handleLogout}>
+          Logout
+        </button>
+      ) : (
+        mostrarLogin && (
+          <button className="login-button" onClick={() => navigate('/login')}>
+            Login
+          </button>
+        )
       )}
     </nav>
   );

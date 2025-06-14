@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import type { FormEvent } from 'react';
 import axios from 'axios';
-import './estilos/Formulario.css';
 import { useNavigate } from 'react-router-dom';
-
+import { AuthContext } from '../context/AuthContext';
+import './estilos/Formulario.css';
 
 interface AuthFormProps {
   title: string;
@@ -14,19 +14,25 @@ interface AuthFormProps {
   extraLinkLabel: string;
 }
 
-function AuthForm({
+interface LoginResponse {
+  mensaje: string;
+  token?: string;
+}
+
+const Formulario: React.FC<AuthFormProps> = ({
   title,
   buttonText,
   onSubmit,
   extraLinkText,
   extraLinkTo,
   extraLinkLabel,
-}: AuthFormProps) {
+}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -36,7 +42,7 @@ function AuthForm({
     try {
       const endpoint = title === 'Crear Cuenta' ? 'register' : 'login';
 
-      const response = await axios.post(`http://localhost:3001/api/${endpoint}`, {
+      const response = await axios.post<LoginResponse>(`http://localhost:3001/api/${endpoint}`, {
         usuario: username,
         contrasena: password,
       });
@@ -44,13 +50,12 @@ function AuthForm({
       alert(response.data.mensaje);
 
       if (endpoint === 'login' && response.data.token) {
-      localStorage.setItem('token', response.data.token);
+        login(response.data.token);
       }
 
       onSubmit(username, password);
-      navigate('/');
+      navigate('/protegida');
     } catch (err: any) {
-      console.error(err);
       alert(err.response?.data?.error || 'Error al procesar la solicitud');
     }
   };
@@ -59,6 +64,7 @@ function AuthForm({
     <div className="auth-container">
       <h2>{title}</h2>
       <form onSubmit={handleSubmit}>
+        {/* Inputs con validaciones como ya tienes */}
         <input
           type="text"
           placeholder="Usuario"
@@ -66,7 +72,6 @@ function AuthForm({
           onChange={(e) => {
             const input = e.target.value.toLowerCase();
             const regex = /^[a-záéíóúñ]*$/i;
-
             if (regex.test(input)) {
               setUsername(input);
               setUsernameError('');
@@ -91,7 +96,6 @@ function AuthForm({
           value={password}
           onChange={(e) => {
             const input = e.target.value;
-
             if (/\s/.test(input)) {
               setPassword(input);
               setPasswordError('La contraseña no puede contener espacios');
@@ -120,6 +124,6 @@ function AuthForm({
       </p>
     </div>
   );
-}
+};
 
-export default AuthForm;
+export default Formulario;
