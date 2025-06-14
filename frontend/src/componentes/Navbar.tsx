@@ -25,6 +25,9 @@ function Navbar({ mostrarLogin = true }: NavbarProps) {
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Acerca</a></li>
         <li><a href="#">Contacto</a></li>
+        <li><Link to="/protegida">
+        Protegida
+      </Link></li>
       </ul>
 
       {isAuthenticated ? (

@@ -40,6 +40,12 @@ router.post('/login', async (req, res) => {
     }
 
     const user = result.rows[0];
+
+    // Verificar que el usuario tenga contraseña local
+    if (!user.contrasena) {
+      return res.status(400).json({ error: 'Este usuario se registró con Google OAuth. Por favor, inicia sesión con Google.' });
+    }
+    
     const match = await bcrypt.compare(contrasena, user.contrasena);
 
     if (!match) {

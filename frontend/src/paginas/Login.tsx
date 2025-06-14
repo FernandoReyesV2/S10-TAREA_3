@@ -1,28 +1,47 @@
 import Formulario from '../componentes/Formulario';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Navbar from '../componentes/Navbar';
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    if (token) {
+      localStorage.setItem('token', token);
+      navigate('/protegida');
+    }
+  }, [location, navigate]);
+
 
   const handleSubmit = (username: string, password: string) => {
-    // Aquí pondrás la lógica real de login
     console.log('Login:', { username, password });
   };
 
+   const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:3001/api/auth/google';
+  }
+
   return (
     <>
-    <Navbar mostrarLogin={false} />
-    <Formulario
-      title="Iniciar Sesión"
-      buttonText="Ingresar"
-      onSubmit={handleSubmit}
-      extraLinkText="¿Aún no tienes cuenta?"
-      extraLinkTo="/register"
-      extraLinkLabel="¡crea una!"
-    />
+      <Navbar mostrarLogin={false} />
+      <div className="auth-wrapper">
+        <Formulario
+          title="Iniciar Sesión"
+          buttonText="Ingresar"
+          onSubmit={handleSubmit}
+          extraLinkText="¿Aún no tienes cuenta?"
+          extraLinkTo="/register"
+          extraLinkLabel="¡crea una!"
+        />
+        <button className="google-login-button" onClick={handleGoogleLogin}>
+          Iniciar sesión con Google
+        </button>
+      </div>
     </>
-    
   );
 }
 
