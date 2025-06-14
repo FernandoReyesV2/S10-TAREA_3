@@ -1,21 +1,21 @@
-// backend/index.js
 const express = require('express');
 const cors = require('cors');
+const authRoutes = require('./rutas');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Example route
+// Usar las rutas de autenticación
+app.use('/api', authRoutes);
+
 app.get('/', (req, res) => {
-  res.send('¡Hola desde el backend!');
+  res.send('Backend funcionando');
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
 });
