@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './estilos/Navbar.css';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
 type NavbarProps = {
   mostrarLogin?: boolean;
@@ -9,6 +9,7 @@ type NavbarProps = {
 
 function Navbar({ mostrarLogin = true }: NavbarProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated, logout } = useAuth();
 
   const handleLogout = () => {
@@ -16,18 +17,25 @@ function Navbar({ mostrarLogin = true }: NavbarProps) {
     navigate('/login');
   };
 
+  const handleNavClick = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: sectionId } });
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
-        MiProyecto
+        ASAR
       </Link>
       <ul className="navbar-links">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Acerca</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><Link to="/protegida">
-        Protegida
-      </Link></li>
+        <li><button onClick={() => handleNavClick("inicio")}>Inicio</button></li>
+        <li><button onClick={() => handleNavClick("acerca")}>Acerca</button></li>
+        <li><button onClick={() => handleNavClick("contacto")}>Contacto</button></li>
+        <li><Link to="/protegida">Protegida</Link></li>
       </ul>
 
       {isAuthenticated ? (

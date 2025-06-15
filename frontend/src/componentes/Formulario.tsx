@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import type { FormEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../AuthContext';
 import './estilos/Formulario.css';
 
 interface AuthFormProps {
@@ -64,7 +64,6 @@ const Formulario: React.FC<AuthFormProps> = ({
     <div className="auth-container">
       <h2>{title}</h2>
       <form onSubmit={handleSubmit}>
-        {/* Inputs con validaciones como ya tienes */}
         <input
           type="text"
           placeholder="Usuario"

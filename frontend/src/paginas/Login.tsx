@@ -2,6 +2,7 @@ import Formulario from '../componentes/Formulario';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from '../componentes/Navbar';
+import "./estilos/Inicio.css"
 
 function Login() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function Login() {
 
   return (
     <>
+    <div className='contenedor-Login'>
       <Navbar mostrarLogin={false} />
       <div className="auth-wrapper">
         <Formulario
@@ -41,6 +43,7 @@ function Login() {
           Iniciar sesión con Google
         </button>
       </div>
+    </div>
     </>
   );
 }

@@ -1,19 +1,20 @@
 import Formulario from '../componentes/Formulario';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../componentes/Navbar';
 
 function Register() {
-  const navigate = useNavigate();
-
   const handleSubmit = (username: string, password: string) => {
-    // Aquí pondrás la lógica real de registro
     console.log('Register:', { username, password });
   };
 
+   const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:3001/api/auth/google';
+  }
   return (
     <>
+    <div className='contenedor-Login'>
       <Navbar mostrarLogin={false} />
-      <Formulario
+      <div className="auth-wrapper">
+        <Formulario
         title="Crear Cuenta"
         buttonText="Registrarse"
         onSubmit={handleSubmit}
@@ -21,7 +22,13 @@ function Register() {
         extraLinkTo="/login"
         extraLinkLabel="Inicia sesión"
       />
+      <button className="google-login-button" onClick={handleGoogleLogin}>
+        Registrate con Google
+      </button>
+      </div>
+      </div>
     </>
+
   );
 }
 

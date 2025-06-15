@@ -1,0 +1,76 @@
+.protegida-container {
+  padding: 6rem 2rem 2rem;
+  min-height: 100vh;
+  background: linear-gradient(to right, #0f2027, #422043, #2c5364);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.protegida-titulo {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.servidores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.servidor-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(0,255,255,0.05);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.servidor-card:hover {
+  transform: translateY(-5px);
+}
+
+.servidor-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.servidor-card .costo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #bb83fa;
+  margin-bottom: 0.5rem;
+}
+
+.servidor-card .rendimiento {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #ccc;
+}
+
+.servidor-card .detalles {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.servidor-card button {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.servidor-card button:hover {
+  background-color: #ccc;
+}

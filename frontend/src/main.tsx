@@ -5,9 +5,9 @@ import './index.css';
 import Inicio from './paginas/Inicio';
 import Login from './paginas/Login';
 import Register from './paginas/Register';
-import Protegida from './paginas/Protegida';
+import Protegida from './paginas/Servidores';
 import RutaPrivada from './componentes/RutaPrivada';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './AuthContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
